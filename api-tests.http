@@ -1,0 +1,130 @@
+### Variables
+@baseUrl = http://localhost:3000/api
+@token = your_jwt_token_here
+
+### Register User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123",
+  "firstName": "Test",
+  "lastName": "User",
+  "phone": "+1234567890"
+}
+
+### Login User
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### Get Profile
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+
+### Create Caretaker 1
+POST {{baseUrl}}/caretakers
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "email": "alice.johnson@example.com",
+  "phone": "+1234567891",
+  "address": "123 Main St, New York, NY",
+  "qualifications": "Licensed RN with pediatric experience",
+  "experience": "5 years in pediatric care",
+  "hourlyRate": 28.50
+}
+
+### Create Caretaker 2
+POST {{baseUrl}}/caretakers
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "firstName": "Bob",
+  "lastName": "Smith",
+  "email": "bob.smith@example.com",
+  "phone": "+1234567892",
+  "address": "456 Oak Ave, Los Angeles, CA",
+  "qualifications": "Certified nursing assistant",
+  "experience": "3 years in elderly care",
+  "hourlyRate": 22.00
+}
+
+### Create Caretaker 3
+POST {{baseUrl}}/caretakers
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "firstName": "Carol",
+  "lastName": "Davis",
+  "email": "carol.davis@example.com",
+  "phone": "+1234567893",
+  "address": "789 Pine St, Chicago, IL",
+  "qualifications": "Licensed practical nurse",
+  "experience": "7 years in home healthcare",
+  "hourlyRate": 25.75
+}
+
+### Get All Caretakers
+GET {{baseUrl}}/caretakers
+Authorization: Bearer {{token}}
+
+### Search for "pediatric"
+GET {{baseUrl}}/caretakers?search=pediatric
+Authorization: Bearer {{token}}
+
+### Filter by firstName
+GET {{baseUrl}}/caretakers?firstName=Alice
+Authorization: Bearer {{token}}
+
+### Filter by hourly rate range
+GET {{baseUrl}}/caretakers?minHourlyRate=25&maxHourlyRate=30
+Authorization: Bearer {{token}}
+
+### Test pagination
+GET {{baseUrl}}/caretakers?page=1&limit=2
+Authorization: Bearer {{token}}
+
+### Sort by hourly rate (descending)
+GET {{baseUrl}}/caretakers?sortBy=hourlyRate&sortOrder=DESC
+Authorization: Bearer {{token}}
+
+### Combined search and filters
+GET {{baseUrl}}/caretakers?search=care&minHourlyRate=20&sortBy=firstName&sortOrder=ASC&page=1&limit=10
+Authorization: Bearer {{token}}
+
+### Search in qualifications
+GET {{baseUrl}}/caretakers?search=nurse
+Authorization: Bearer {{token}}
+
+### Filter by email (partial match)
+GET {{baseUrl}}/caretakers?email=alice
+Authorization: Bearer {{token}}
+
+### Get specific caretaker
+GET {{baseUrl}}/caretakers/1
+Authorization: Bearer {{token}}
+
+### Update caretaker
+PATCH {{baseUrl}}/caretakers/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "hourlyRate": 30.00,
+  "qualifications": "Senior Licensed RN with pediatric and NICU experience"
+}
+
+### Delete caretaker
+DELETE {{baseUrl}}/caretakers/1
+Authorization: Bearer {{token}}

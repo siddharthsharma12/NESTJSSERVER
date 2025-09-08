@@ -9,12 +9,16 @@ import {
   Query,
   HttpStatus,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { CaretakerService } from './caretaker.service';
 import { CreateCaretakerDto } from './dto/create-caretaker.dto';
 import { UpdateCaretakerDto } from './dto/update-caretaker.dto';
+import { QueryCaretakerDto } from './dto/query-caretaker.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('caretakers')
+@UseGuards(JwtAuthGuard)
 export class CaretakerController {
   constructor(private readonly caretakerService: CaretakerService) {}
 
@@ -27,8 +31,8 @@ export class CaretakerController {
 
   
   @Get()
-  findAll() {
-    return this.caretakerService.findAll();
+  findAll(@Query() queryDto: QueryCaretakerDto) {
+    return this.caretakerService.findAll(queryDto);
   }
 
 

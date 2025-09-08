@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { CaretakerModule } from './caretaker/caretaker.module';
+import { AuthModule } from './auth/auth.module';
 import { DatabaseService } from './database.service';
 
 @Module({
@@ -21,10 +22,13 @@ import { DatabaseService } from './database.service';
       password: process.env.DB_PASSWORD || 'password',
       database: process.env.DB_NAME || 'caretaker_db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: process.env.NODE_ENV !== 'production', // Auto-sync in development
+      migrations: [__dirname + '/migrations/*{.ts,.js}'],
+      synchronize: false, // Disabled - using migrations instead
+      migrationsRun: true, // Auto-run migrations on startup
       logging: process.env.NODE_ENV !== 'production',
     }),
     
+    AuthModule,
     CaretakerModule,
   ],
   providers: [DatabaseService],
