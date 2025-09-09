@@ -1,6 +1,6 @@
 ### Variables
 @baseUrl = http://localhost:3000/api
-@token = your_jwt_token_here
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJzdWIiOjEsInJvbGUiOiJjYXJldGFrZXIiLCJpYXQiOjE3NTc0MjA5MzIsImV4cCI6MTc1NzUwNzMzMn0.mV0YG5UqtaDGuLrHJCmHH3eP4ScyhEye6MUE8E72Gag
 
 ### Register User
 POST {{baseUrl}}/auth/register
@@ -65,14 +65,14 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "firstName": "Carol",
-  "lastName": "Davis",
-  "email": "carol.davis@example.com",
-  "phone": "+1234567893",
-  "address": "789 Pine St, Chicago, IL",
+  "firstName": "Siddharth",
+  "lastName": "Davi",
+  "email": "carol.davi@example.com",
+  "phone": "+1234567894",
+  "address": "789 Pin St, Chicago, IL",
   "qualifications": "Licensed practical nurse",
-  "experience": "7 years in home healthcare",
-  "hourlyRate": 25.75
+  "experience": "8 years in home healthcare",
+  "hourlyRate": 25.76
 }
 
 ### Get All Caretakers
@@ -112,7 +112,7 @@ GET {{baseUrl}}/caretakers?email=alice
 Authorization: Bearer {{token}}
 
 ### Get specific caretaker
-GET {{baseUrl}}/caretakers/1
+GET {{baseUrl}}/caretakers/2
 Authorization: Bearer {{token}}
 
 ### Update caretaker

@@ -18,29 +18,29 @@ export class AuthService {
   async register(registerDto: RegisterDto): Promise<{ user: Omit<User, 'password'>; access_token: string }> {
     const { email, password, firstName, lastName, phone } = registerDto;
 
-    // Check if user already exists
+    
     const existingUser = await this.userRepository.findOne({ where: { email } });
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
     }
 
-    // Hash password
+    
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Create user
+    
     const user = this.userRepository.create({
       email,
       password: hashedPassword,
       firstName,
       lastName,
       phone,
-      role: 'caretaker', // Default role for caretakers
+      role: 'caretaker', 
     });
 
     const savedUser = await this.userRepository.save(user);
 
-    // Generate JWT token
+    
     const payload = { email: savedUser.email, sub: savedUser.id, role: savedUser.role };
     const access_token = this.jwtService.sign(payload);
 
@@ -56,24 +56,24 @@ export class AuthService {
   async login(loginDto: LoginDto): Promise<{ user: Omit<User, 'password'>; access_token: string }> {
     const { email, password } = loginDto;
 
-    // Find user by email
+    
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // Check if user is active
+    
     if (!user.isActive) {
       throw new UnauthorizedException('Account is deactivated');
     }
 
-    // Verify password
+    
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    // Generate JWT token
+    
     const payload = { email: user.email, sub: user.id, role: user.role };
     const access_token = this.jwtService.sign(payload);
 
